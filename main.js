@@ -8,15 +8,26 @@ document.querySelector('.tecla_pom').onclick = playSonidoPom; */
 
 /*Empleamos el document.querySelectorAll() para seleccionar todos los elementos del selector deseado, reduciendo la cantidad de repeticiones de código, lo que, en consecuencia, promoverá una optimización en el código en lugar de la repetición.*/
 const listaDeTeclas = document.querySelectorAll('.tecla')
+console.log("esta es la lista",listaDeTeclas);
 
-function playSonidoPom(){
-    document.querySelector('#sonido_tecla_pom').play();
+function playSonido(idElementoAudio){
+    document.querySelector(idElementoAudio).play();
 }
 
 let contador = 0;
 /* usare un bucle while para recorrer mi lista */
 while (contador < 9){
-    listaDeTeclas[0].onclick = playSonidoPom;
+    const tecla = listaDeTeclas[contador];
+    const instrumento = tecla.classList[1]
+    console.log(instrumento)
+    //template strings para crear textos dinámicos que incluyan variables, concatenamos palabra y el instrumento 
+    const idAudio = `#sonido_${instrumento}`;
+    console.log(idAudio)
+    /*funcion anonima para que el sonido solo se reproduzca cuando se hace click y no en automatico al cargar la pagina*/
+    tecla.onclick = function (){
+        playSonido(idAudio)
+    }
+ 
 contador = contador + 1;
 console.log('vuelta' + contador);
 }
